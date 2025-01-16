@@ -1,0 +1,89 @@
+/* To override Bootstrap's card image styles */
+.book-card .card-img-top,
+.book-card .card-img-bottom,
+.book-thumbnail {
+	width: auto !important; /* Remove width 100% set by Bootstrap */
+	max-width: 100% !important; /* Ensure it doesn't overflow */
+	height: 300px; /* Adjust height as per your needs */
+	margin: 10px; /* Add margin for spacing */
+	border-radius: 8px 8px 0 0; /* Rounded top corners */
+}
+
+/* Styling the card */
+.book-card {
+	flex: 1 1 calc(33.33% - 1rem); /* Default for larger screens */
+	max-width: 300px; /* Maximum width for the card */
+	min-width: 250px; /* Minimum width for the card */
+	margin-bottom: 1rem;
+	box-sizing: border-box;
+	border-radius: 8px;
+	overflow: hidden;
+	background-color: rgb(22, 22, 20); /* Light background color */
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); /* Soft shadow effect */
+	transition: all 0.3s ease; /* Smooth transition for hover effect */
+}
+
+/* Card hover effect */
+.book-card:hover {
+	transform: translateY(-10px); /* Slightly lift the card */
+	box-shadow: 10px 10px 40px rgba(10, 21, 235, 0.6);
+}
+
+/* Card body styling */
+.book-card .card-body {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	flex-grow: 1;
+	padding: 10px;
+}
+
+/* Styling the book title */
+.book-title {
+	font-size: 1.1rem;
+	font-weight: bold; /* Make the title bolder */
+	margin-bottom: 10px;
+	color: #333; /* Dark color for title */
+}
+
+/* Styling authors and description */
+.book-authors,
+.book-description {
+	font-size: 0.9rem;
+	margin-bottom: 10px;
+	color: #555; /* Lighter color for authors/description */
+}
+
+/* Make description grow to fill space if necessary */
+.book-description {
+	flex-grow: 1;
+}
+
+/* Button styling */
+.btn {
+	align-self: center;
+	margin-top: 10px;
+	border: none;
+	padding: 8px 16px;
+	border-radius: 4px;
+	text-decoration: none; /* Remove underline */
+	transition: background-color 0.3s ease;
+}
+
+/* Button hover effect */
+.btn:hover {
+	background-color: rgb(11, 69, 130); /* Darker blue on hover */
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 767px) {
+	.book-card {
+		flex: 1 1 100%; /* Cards take full width on smaller screens */
+		width: 100%;
+		min-width: 200px; /* Ensure cards are not too small */
+	}
+
+	.book-thumbnail {
+		height: 150px; /* Adjust image height on mobile */
+	}
+}
