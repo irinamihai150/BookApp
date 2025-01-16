@@ -20,7 +20,7 @@ const IsbnScanner = () => {
 
 		try {
 			const response = await axios.get(
-				`http://localhost:5000/books/isbn?isbn=${isbn}`
+				`https://bookapp-r8ov.onrender.com/books/isbn?isbn=${isbn}`
 			)
 			setBook(response.data)
 		} catch (err) {
