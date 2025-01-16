@@ -6,7 +6,12 @@ import cors from "cors"
 dotenv.config()
 
 const app = express()
-app.use(cors({ origin: "https://bookappm.netlify.app/" }))
+app.use(
+	cors({
+		origin: "https://bookappm.netlify.app/",
+		methods: ["GET", "POST", "PUT", "DELETE"],
+	})
+)
 const port = 5000
 
 app.get("/books", async (req, res) => {
