@@ -4,12 +4,20 @@ import dotenv from "dotenv"
 import cors from "cors"
 
 dotenv.config()
+const allowedOrigins = ["http://localhost:3000", "https://bookappm.netlify.app"]
 
 const app = express()
+
 app.use(
 	cors({
-		origin: "https://bookappm.netlify.app/",
-		methods: ["GET", "POST", "PUT", "DELETE"],
+		origin: function (origin, callback) {
+			if (allowedOrigins.includes(origin)) {
+				callback(null, true)
+			} else {
+				callback(new Error("Not allowed by CORS"))
+			}
+		},
+		methods: ["GET", "POST"],
 	})
 )
 const port = 5000
