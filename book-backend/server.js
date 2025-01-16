@@ -15,9 +15,9 @@ app.get("/books", async (req, res) => {
 	try {
 		const response = await axios.get(process.env.API_BASE_URL, {
 			params: {
-				q: `subject:${category}`, // Căutare pe baza categoriei
-				maxResults: maxResults || 10, // Limita de rezultate
-				key: process.env.API_KEY, // Folosește API key-ul
+				q: `subject:${category}`,
+				maxResults: maxResults || 10,
+				key: process.env.API_KEY,
 			},
 		})
 
@@ -29,7 +29,6 @@ app.get("/books", async (req, res) => {
 		}
 
 		const books = response.data.items.map((item) => {
-			// Extrage ISBN din industryIdentifiers
 			const isbn =
 				item.volumeInfo.industryIdentifiers?.find(
 					(identifier) => identifier.type === "ISBN_13"
@@ -40,15 +39,15 @@ app.get("/books", async (req, res) => {
 
 			return {
 				title: item.volumeInfo.title,
-				isbn: isbn || "No ISBN found", // Dacă nu există ISBN, returnează un mesaj default
+				isbn: isbn || "No ISBN found",
 				authors: item.volumeInfo.authors || ["Unknown"],
-				description: truncateDescription(item.volumeInfo.description, 150), // Truncatează descrierea
+				description: truncateDescription(item.volumeInfo.description, 150),
 				thumbnail: item.volumeInfo.imageLinks?.thumbnail || null,
 				link: item.volumeInfo.infoLink,
 			}
 		})
 
-		res.json(books) // Trimite răspunsul cu cărțile
+		res.json(books)
 	} catch (error) {
 		console.error(error)
 		res.status(500).json({ error: "Failed to fetch books from the API" })
@@ -58,28 +57,24 @@ app.get("/books", async (req, res) => {
 app.get("/books/isbn", async (req, res) => {
 	const { isbn } = req.query
 
-	// Check if the ISBN is provided in the query
 	if (!isbn) {
 		return res.status(400).json({ error: "ISBN is required" })
 	}
 
 	try {
-		// Send request to Google Books API with the provided ISBN
 		const response = await axios.get(process.env.API_BASE_URL, {
 			params: {
 				q: `isbn:${isbn}`,
-				key: process.env.API_KEY, // Your API key
+				key: process.env.API_KEY,
 			},
 		})
 
-		// Check if any books are found
 		if (response.data.items && response.data.items.length > 0) {
 			const book = response.data.items[0].volumeInfo
 
-			// Send the book details back to the client
 			res.json({
 				title: book.title,
-				authors: book.authors || ["Unknown"], // Default to "Unknown" if no authors
+				authors: book.authors || ["Unknown"],
 				description: book.description || "No description available.",
 				thumbnail: book.imageLinks ? book.imageLinks.thumbnail : null,
 				link: book.infoLink,
