@@ -31,6 +31,7 @@ app.get("/books", async (req, res) => {
 				q: `subject:${category}`,
 				maxResults: maxResults || 10,
 				key: process.env.API_KEY,
+				langRestrict: "en",
 			},
 		})
 
@@ -79,6 +80,7 @@ app.get("/books/isbn", async (req, res) => {
 			params: {
 				q: `isbn:${isbn}`,
 				key: process.env.API_KEY,
+				langRestrict: "en",
 			},
 		})
 
