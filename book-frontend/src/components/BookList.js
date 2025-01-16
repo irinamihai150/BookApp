@@ -36,7 +36,7 @@ const BookList = () => {
 		const fetchBooks = async () => {
 			try {
 				const response = await fetch(
-					`https://bookapp-r8ov.onrender.com/books?category=${category}&maxResults=${maxResults}`
+					`https://bookapp-r8ov.onrender.com/books?category=${category}&maxResults=${maxResults}&lang=en`
 				)
 				const data = await response.json()
 				setBooks(data)
