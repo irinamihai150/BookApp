@@ -31,7 +31,7 @@ const IsbnScanner = () => {
 	}
 
 	return (
-		<Container className='mt-4'>
+		<Container className='mt-4 justify-content-center'>
 			<Form onSubmit={handleSubmit} className='mb-4'>
 				<Row>
 					<h2>Search for a book</h2>
@@ -40,19 +40,21 @@ const IsbnScanner = () => {
 						<Form.Group>
 							<Form.Control
 								type='text'
-								placeholder='Enter ISBN'
+								placeholder='Enter Isbn ...'
 								value={isbn}
 								onChange={handleIsbnChange}
+								className='w-50'
 								required
 							/>
 						</Form.Group>
 						<Button
-							variant='primary'
+							variant='info'
 							type='submit'
-							className='w-100'
+							className='w-50 text-bg-light
+'
 							disabled={loading}
 						>
-							{loading ? "Loading..." : "Search Book"}
+							{loading ? "Searching..." : "Search Book"}
 						</Button>
 					</Col>
 				</Row>

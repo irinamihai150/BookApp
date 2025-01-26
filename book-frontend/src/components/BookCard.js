@@ -25,7 +25,7 @@ const BookCard = ({ book }) => {
 					href={book.link}
 					target='_blank'
 					rel='noopener noreferrer'
-					className='btn btn-primary'
+					className='btn text-bg-light'
 				>
 					View on Google Books
 				</a>

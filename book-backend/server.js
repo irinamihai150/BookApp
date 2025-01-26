@@ -4,43 +4,42 @@ import dotenv from "dotenv"
 import cors from "cors"
 
 dotenv.config()
-const allowedOrigins = ["http://localhost:3000", "https://bookappm.netlify.app"]
+
+const port = process.env.PORT || 5000
 
 const app = express()
+
+const allowedOrigins = ["http://localhost:3000", "https://bookappm.netlify.app"]
 
 app.use(
 	cors({
 		origin: function (origin, callback) {
-			if (allowedOrigins.includes(origin)) {
+			if (!origin || allowedOrigins.includes(origin)) {
 				callback(null, true)
 			} else {
 				callback(new Error("Not allowed by CORS"))
 			}
 		},
-		methods: ["GET", "POST"],
+		methods: ["GET"],
 	})
 )
-const port = 5000
 
 app.get("/books", async (req, res) => {
-	const { category, maxResults } = req.query
+	const { category = "computers", maxResults = 15 } = req.query
+
+	const finalMaxResults = [5, 10, 15].includes(Number(maxResults))
+		? Number(maxResults)
+		: 10
 
 	try {
 		const response = await axios.get(process.env.API_BASE_URL, {
 			params: {
 				q: `subject:${category}`,
-				maxResults: maxResults || 10,
+				maxResults: finalMaxResults,
 				key: process.env.API_KEY,
 				langRestrict: "en",
 			},
 		})
-
-		const truncateDescription = (description, maxLength = 200) => {
-			if (!description) return "No description available."
-			return description.length > maxLength
-				? `${description.slice(0, maxLength)}...`
-				: description
-		}
 
 		const books = response.data.items.map((item) => {
 			const isbn =
@@ -55,7 +54,7 @@ app.get("/books", async (req, res) => {
 				title: item.volumeInfo.title,
 				isbn: isbn || "No ISBN found",
 				authors: item.volumeInfo.authors || ["Unknown"],
-				description: truncateDescription(item.volumeInfo.description, 150),
+				description: item.volumeInfo.description || "No description available.",
 				thumbnail: item.volumeInfo.imageLinks?.thumbnail || null,
 				link: item.volumeInfo.infoLink,
 			}

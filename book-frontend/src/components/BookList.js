@@ -6,8 +6,8 @@ const BookList = () => {
 	const [books, setBooks] = useState([])
 	const [loading, setLoading] = useState(true)
 	const [error, setError] = useState(null)
-	const [category, setCategory] = useState("programming")
-	const [maxResults, setMaxResults] = useState(10)
+	const [category, setCategory] = useState("computers")
+	const [maxResults, setMaxResults] = useState(15)
 
 	const categories = [
 		"arts",
