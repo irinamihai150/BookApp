@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  frontend:
+    image: frontend-book
+    build:
+      context: ./book-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+  backend:
+    image: backend-book
+    build:
+      context: ./book-backend
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./book-backend/.env
