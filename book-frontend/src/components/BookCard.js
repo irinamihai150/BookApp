@@ -8,7 +8,7 @@ const BookCard = ({ book }) => {
 			<Card.Img
 				src={book.thumbnail || "/book.png"}
 				alt={book.title}
-				className='book-thumbnail'
+				className='book-thumbnail p-2'
 			/>
 			<Card.Body>
 				<Card.Title className='book-title'>{book.title}</Card.Title>
